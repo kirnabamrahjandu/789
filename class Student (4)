@@ -1,0 +1,106 @@
+Classes and inheritance
+Create a class in Swift named Student
+with attributes: student no, name, age, average
+and create a constructor.
+Then in the main class create an array and fill it from the user by the keyboard. Then
+
+1. print the details of the student who's average greater than 90
+2. Find and print the details of the student who has the highest average
+3. let the user enter a name and print the student details but if not found print a messages says that
+
+//the student class
+
+import Foundation
+
+class Student{
+    var studentNo:Int
+    var studentName:String
+    var studentAge:Int
+    var studentAvg:Double
+    
+    //creating the init which is the constructor
+    init(no:Int, name:String, age:Int, avg:Double){
+        self.studentNo = no
+        self.studentName = name
+        self.studentAge = age
+        self.studentAvg = avg
+    }
+    
+    //print the student details
+    func printStudent(){
+        print("Student No:\(self.studentNo)\t Student Name:\(self.studentName)\t Student Age:\(self.studentAge)\t Student Average:\(self.studentAvg)")
+    }
+}
+
+
+
+\\the main class
+import Foundation
+
+//create an array of students
+var studentList = [Student]()
+
+//ask the user to tell hoe many students
+print("How many students do you have?")
+let n = Int(readLine()!)!
+for _ in 0..<n {
+    print("enter the student no:")
+    let no = Int(readLine()!)!
+    print("Enter the student name:")
+    let name = readLine()!
+    print("enter the student age:")
+    let age = Int(readLine()!)!
+    print("entr the student average:")
+    let avg = Double(readLine()!)!
+    
+    //crate the object
+    studentList.append(Student(no: no, name: name, age: age, avg: avg))
+}
+
+//print the details of any student their average more than 90
+for st in studentList {
+    if st.studentAvg > 90 {
+        st.printStudent()
+    }
+}
+//create a function that finds and returns the index of student who has the highest average
+func highestAvg() ->Int{
+    //let max to be the first average of the array
+    var max = studentList[0].studentAvg
+    var m = 0
+    for i in 0..<studentList.count{
+        if studentList[i].studentAvg > max {
+            max = studentList[i].studentAvg
+            m = i
+        }
+    }
+    return m
+}
+
+var index = highestAvg() //calling the function to get the index of the student who has the highest average
+print("The student who has the highest average is \(studentList[index].studentName)")
+
+//let the user enter a student name, search if the names found print the student details, otherwise print a message says not found
+
+print ("Enter a student name to print their details:")
+var studentName = readLine()!
+//create a function that returns the index of the student with the given name or returns -1 if the student not found
+func searchByName() ->Int
+{
+    for i in 0..<studentList.count{
+        if studentList[i].studentName == studentName {
+            return i
+        }
+    }
+    return -1
+}
+index = searchByName()
+if index == -1 {
+    print("the name not found")
+}
+else {
+    studentList[index].printStudent()
+}
+
+
+
